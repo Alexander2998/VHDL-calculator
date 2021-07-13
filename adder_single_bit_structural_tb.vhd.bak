@@ -1,0 +1,109 @@
+--*****************************************************************************
+--***************************  VHDL Source Code  ******************************
+--*****************************************************************************
+--
+--  DESIGNER NAME: Alex Chen 
+--
+--       LAB NAME:  <lab 2 1 bit adder>
+--
+--      FILE NAME:  <filename>
+--
+-------------------------------------------------------------------------------
+--
+--  DESCRIPTION
+--
+--    This design will <insert detailed description of design>. 
+--
+--
+-------------------------------------------------------------------------------
+--
+--  REVISION HISTORY
+--
+--  _______________________________________________________________________
+-- |  DATE    | USER | Ver |  Description                                  |
+-- |==========+======+=====+================================================
+-- |          |      |     |
+-- | 09/2/2020| XXX  | 1.0 | Created
+-- |          |      |     |
+--
+--*****************************************************************************
+--*****************************************************************************
+
+------------------------------------------------------------------------------
+-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-- ||||                                                                   ||||
+-- ||||                    COMPONENT PACKAGE                              ||||
+-- ||||                                                                   ||||
+-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------
+
+-- include ieee packages here
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+use ieee.numeric_std; 
+
+-- include your packages here
+LIBRARY work;
+USE work.adder_single_bit_structural_pkg.ALL;
+
+
+ENTITY adder_single_bit_structural_tb IS
+
+END ENTITY adder_single_bit_structural_tb;
+
+-------------------------------------------------------------------------------
+
+ARCHITECTURE test OF adder_single_bit_structural_tb IS
+
+    ---------------------------------------------------------------------------
+    -- define sigals that you will need to test UUT
+    ---------------------------------------------------------------------------
+signal in_vect: std_logic_vector(2 downto 0):=(others=>'0'); 
+signal output1,output2: std_logic; 
+
+    -- <define your signals here> 
+    
+BEGIN  -- test
+
+
+    ---------------------------------------------------------------------------
+    -- instantiate the unit under test (UUT)
+    ---------------------------------------------------------------------------
+    UUT : adder_single_bit_structural 
+    PORT MAP (
+        a=>in_vect(0),
+		b=>in_vect(1), 
+		cin=>in_vect(2),
+        -- <connect UUT I/O to testbench signals>
+        -- <format: component signal => tb signal> 
+		sum=>output1,
+		cout=>output2
+        
+        );
+
+
+    ---------------------------------------------------------------------------
+    -- the process will apply the test vectors to the UUT
+    ---------------------------------------------------------------------------
+    stimulus : PROCESS
+    BEGIN  -- PROCESS stimulus
+
+
+        -- INSERT YOUR TEST VECTORS HERE
+
+	for i in 0 to 2**in_vect'length -1 loop 
+			in_vect <= std_logic_vector(to_unsigned(i, in_vect'length));
+		wait for 10 ns;
+	end loop; 
+
+
+        -----------------------------------------------------------------------
+        -- stop simulation, wait here forever
+        -----------------------------------------------------------------------
+        wait;
+    END PROCESS stimulus;
+
+END ARCHITECTURE test;
+
+-------------------------------------------------------------------------------
+
